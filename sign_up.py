@@ -3,7 +3,13 @@ from hashlib import *
 import os
 
 
-
+def sign_up(user_name , password , security_level):
+    user_name = user_name
+    password = password
+    security_level = security_level
+    encrypted_password = encrypt(user_name, password, security_level)
+    print(encrypted_password)
+    
 def encrypt(user_name, password , security_level):
     time_cost , memory_cost = get_security_level(security_level)
     salt = custom_salt(user_name)
@@ -39,3 +45,4 @@ def get_security_level(security_level: str) -> tuple:
 
 
 
+sign_up("luca" , "Mawyin" , "Very High")

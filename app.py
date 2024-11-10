@@ -3,6 +3,8 @@ from tkinter import messagebox
 
 from log_in import log_in
 from sign_up import sign_up
+import userObj 
+
 
 
 # Set appearance mode and color theme
@@ -11,17 +13,32 @@ ctk.set_default_color_theme("blue")  # Themes: "blue", "green", "dark-blue"
 
 # Function to handle sign-in action
 def on_log_in():
-    user = username_entry.get()
-    password = password_entry.get()
+    try:
+        user = username_entry.get()
+        password = password_entry.get()
+        if log_in(user, password):
+            messagebox.showinfo("Succes!" , "You have successfully logged in!")
+            exit()
 
-    log_in(user, password)
+        else:
+            messagebox.showwarning("Warning!","Incorrect Password!")
+            username_entry.delete(0,"end")
+            password_entry.delete(0,"end")
+    except userObj.userException as e:
+            messagebox.showerror("Error" , e.message)
+
+    
     
 
 def on_sign_up():
-    user = username_entry.get()
-    password = password_entry.get()
+    try:
+        user = username_entry.get()
+        password = password_entry.get()
 
-    sign_up(user, password)
+        sign_up(user, password)
+    except userObj.userException as e:
+        messagebox.showerror("Error" , e.message)
+        display_log_in()
 
 def clear_window():
     for widget in app.winfo_children():
@@ -95,8 +112,8 @@ def switch_to_sign_up():
 # Initialize the main application window
 app = ctk.CTk()
 app.title("CustomTkinter Sign In")
-app.geometry("500x300")
-
+app.geometry("500x450")
+app.resizable(0,0)
 # Title Label
 title_label = ctk.CTkLabel(app, text="Sign In", font=("Arial", 20))
 title_label.pack(pady=20)
@@ -123,6 +140,21 @@ log_in_button.pack(pady=20)
 sign_up_button = ctk.CTkButton(app, text="No Account? Sign Up", command=switch_to_sign_up)
 sign_up_button.pack(pady=50)
 
+
+def centre_window():
+    app.update_idletasks()
+    w = app.winfo_width()
+    h = app.winfo_height()
+
+    ws = app.winfo_screenwidth()
+    hs = app.winfo_screenheight()
+
+    x = (ws / 2) - (w / 2)
+    y = (hs / 2) - (h / 2)
+
+    app.geometry("%dx%d+%d+%d" % (w, h, x, y))
+
+centre_window()
 
 # Run the application
 app.mainloop()

@@ -24,7 +24,7 @@ class userObj:
     # Loading username & password data
     def __init__(self) -> None:
 
-        self.filename = "userData/userData.json"
+        self.filename = "userData.json"
 
         with open(self.filename,"r+") as f:
             self.data = json.load(f)
@@ -46,8 +46,6 @@ class userObj:
 
     # Creating new user
     def createUser(self,username:str,password:str) -> None: #Throws userException
-
-
 
         # User does not exist
         if not self.exists(username):

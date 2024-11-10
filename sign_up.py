@@ -1,13 +1,18 @@
 from argon2 import *
 from hashlib import *
 import os
+import userObj
 
 
 def sign_up(user_name , password):
+
+    user = userObj.hashObj_instance
+
     user_name = user_name
     password = password
-    encryption_dictionary = encrypt(user_name, password)
-    
+    encryption_dictionary = encrypt(user_name, password)    
+
+    user.createUser(user_name,encryption_dictionary)
     
 def encrypt(user_name , password):
     new_dictionary = {}

@@ -5,10 +5,21 @@ from hashlib import *
 
 def log_in(user_name, password):
     user = userObj.hashObj_instance
-    my_user = user[user_name]
-    my_salt = my_user["Salt"]
-    user_login_password = encryption2(password , my_salt)
-    return user_login_password == my_user["Hashed_Password"]
+
+    try:
+
+        my_user = user.data[user_name]
+        my_salt = my_user["Salt"]
+        stored_hashed_password =  my_user["Hashed_Password"]
+    except KeyError:
+        raise userObj.userException(1)
+
+    try:
+        ph = PasswordHasher(time_cost= 6 , memory_cost= 4096)
+        ph.verify(stored_hashed_password , password + my_salt)
+        return True
+    except:
+        return False
 
 
 def encryption2(password , salt):

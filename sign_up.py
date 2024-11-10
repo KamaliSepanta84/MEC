@@ -5,14 +5,18 @@ import userObj
 
 
 def sign_up(user_name , password):
+    try:
+        user = userObj.hashObj_instance
 
-    user = userObj.hashObj_instance
+        user_name = user_name
+        password = password
+        encryption_dictionary = encrypt(user_name, password)    
 
-    user_name = user_name
-    password = password
-    encryption_dictionary = encrypt(user_name, password)    
+        user.createUser(user_name,encryption_dictionary)
+        
+    except userObj.userException as userException:
+        raise userException
 
-    user.createUser(user_name,encryption_dictionary)
     
 def encrypt(user_name , password):
     new_dictionary = {}

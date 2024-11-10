@@ -13,7 +13,7 @@ def sign_up(user_name , password):
         encryption_dictionary = encrypt(user_name, password)    
 
         user.createUser(user_name,encryption_dictionary)
-        
+
     except userObj.userException as userException:
         raise userException
 
@@ -23,7 +23,7 @@ def encrypt(user_name , password):
     salt = custom_salt(user_name)
     user_hashed_password = hash_password(password,salt)
     new_dictionary["Hashed_Password"] = user_hashed_password
-    new_dictionary["salt"] = salt
+    new_dictionary["Salt"] = salt
     return new_dictionary
 
 

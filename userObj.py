@@ -1,5 +1,7 @@
 
 import json
+import log_in
+import sign_up
 
 # Exception for when username exists
 class userException(Exception):
@@ -45,13 +47,13 @@ class userObj:
             json.dump(self.data,f)
 
     # Creating new user
-    def createUser(self,username:str,password:str) -> None: #Throws userException
+    def createUser(self,username:str,encrypted_dictionary:str) -> None: #Throws userException
 
         # User does not exist
         if not self.exists(username):
 
             # Appending data to json
-            self.data[username] = password
+            self.data[username] = encrypted_dictionary
             self.updateJson()
 
         # User exists
@@ -63,7 +65,7 @@ class userObj:
 
         # User exists
         if self.exists(username):
-            return self.data[username] == password
+            return self.data[username]["Hashed_Password"] == password
         
         # User does not exist
         else:

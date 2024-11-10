@@ -7,10 +7,11 @@ def log_in(user_name, password):
     user = userObj.hashObj_instance
 
     try:
-
         my_user = user.data[user_name]
         my_salt = my_user["Salt"]
         stored_hashed_password =  my_user["Hashed_Password"]
+
+    # In case user does not exist
     except KeyError:
         raise userObj.userException(1)
 
@@ -20,11 +21,5 @@ def log_in(user_name, password):
         return True
     except:
         return False
-
-
-def encryption2(password , salt):
-    ph = PasswordHasher(time_cost= 6 , memory_cost= 4096)
-    hashed_password = ph.hash(password + salt)
-    return hashed_password
 
 

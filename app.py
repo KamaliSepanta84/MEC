@@ -16,6 +16,7 @@ def on_log_in():
 
     log_in(user, password)
     
+
 def on_sign_up():
     user = username_entry.get()
     password = password_entry.get()
@@ -27,6 +28,9 @@ def clear_window():
         widget.destroy()
 
 def display_sign_up():
+
+    global username_entry, password_entry
+
     # Title Label
     title_label = ctk.CTkLabel(app, text="Sign Up", font=("Arial", 20))
     title_label.pack(pady=20)
@@ -54,6 +58,9 @@ def display_sign_up():
     
 
 def display_log_in():
+
+    global username_entry, password_entry
+
     clear_window()
     # Title Label
     title_label = ctk.CTkLabel(app, text="Sign In", font=("Arial", 20))

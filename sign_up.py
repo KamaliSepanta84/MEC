@@ -3,22 +3,23 @@ from hashlib import *
 import os
 
 
-def sign_up(user_name , password , security_level):
+def sign_up(user_name , password):
     user_name = user_name
     password = password
-    security_level = security_level
-    encrypted_password = encrypt(user_name, password, security_level)
-    print(encrypted_password)
+    encryption_dictionary = encrypt(user_name, password)
     
-def encrypt(user_name, password , security_level):
-    time_cost , memory_cost = get_security_level(security_level)
+    
+def encrypt(user_name , password):
+    new_dictionary = {}
     salt = custom_salt(user_name)
-    user_hashed_password = hash_password(password , time_cost , memory_cost , salt)
-    return user_hashed_password
+    user_hashed_password = hash_password(password,salt)
+    new_dictionary["Hashed_Password"] = user_hashed_password
+    new_dictionary["salt"] = salt
+    return new_dictionary
 
 
-def hash_password(user_password: str , time_cost: int , memory_cost:int , salt: str) -> str:
-    ph = PasswordHasher(time_cost= time_cost , memory_cost= memory_cost)
+def hash_password(user_password: str, salt: str) -> str:
+    ph = PasswordHasher(time_cost= 6 , memory_cost= 4096)
     password = user_password
     hashed_password = ph.hash(password + salt)
     return hashed_password
@@ -31,18 +32,6 @@ def custom_salt(user_name:str) -> str:
 
 
 
-def get_security_level(security_level: str) -> tuple:
-    if security_level == "Medium":
-        time_cost = 2
-        memory_cost = 1024
-    elif security_level == "High":
-        time_cost = 4
-        memory_cost = 2048
-    elif security_level == "Very High":
-        time_cost = 6
-        memory_cost = 4096
-    return time_cost, memory_cost
 
 
 
-sign_up("luca" , "Mawyin" , "Very High")

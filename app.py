@@ -1,8 +1,9 @@
 import customtkinter as ctk
 from tkinter import messagebox
 
-from .log_in import log_in
-from .sign_up import sign_up
+from log_in import log_in
+from sign_up import sign_up
+
 
 # Set appearance mode and color theme
 ctk.set_appearance_mode("dark")  # Modes: "light" or "dark"

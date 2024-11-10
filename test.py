@@ -1,3 +1,3 @@
-import hashObj
+import userData.userObj as h
 
-t = hashObj.hashObj_instance
+t=h.hashObj_instance
